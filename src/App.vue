@@ -10,40 +10,37 @@
 </template>
 
 <script>
-import CountriesList from './Components/countriesList.vue';
+import CountriesList from "./Components/countriesList.vue";
 
-import {eventBus} from './main.js';
-import countryDetails from './Components/countryDetails.vue';
-
+import { eventBus } from "./main.js";
+import countryDetails from "./Components/countryDetails.vue";
 
 export default {
-  data(){
-    name: 'app'
+  data() {
+    name: "app";
     return {
       countries: [],
       selectedCountry: null
-    }
+    };
   },
   components: {
     "countries-list": CountriesList,
     "country-details": countryDetails
-
   },
-  mounted(){
-    fetch('https://restcountries.eu/rest/v2/all')
-    .then(res => res.json())
-    .then(countries => this.countries = countries)
-    eventBus.$on('country-selected', (country)=>{
-      this.selectedCountry=country;
-      
-    })
+  mounted() {
+    fetch("https://restcountries.eu/rest/v2/all")
+      .then(res => res.json())
+      .then(countries => (this.countries = countries));
+    eventBus.$on("country-selected", country => {
+      this.selectedCountry = country;
+    });
   }
-}
+};
 </script>
 
 <style lang="css" scoped>
-  .main-container {
-    display: flex;
-    justify-content: space-between;
-  }
+.main-container {
+  display: flex;
+  justify-content: space-between;
+}
 </style>

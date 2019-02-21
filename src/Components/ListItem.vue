@@ -1,5 +1,7 @@
 <template>
-  <option :value="index">{{country.name}}</option>
+  <li v-on:click="handleClick">
+   {{country.name}}
+  </li>
 </template>
 
 <script>

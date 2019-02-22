@@ -8,14 +8,13 @@
     <div class="input_box">
       <label for="input_box">Search Country</label>
       <input type="text" placeholder="Filter Countries...." id="input_box" value="" v-model="input_box"  v-on:keyup="filterCountries">
-      <list-item v-if="!countriesFiltered==[]" v-for="(country, index) in countriesFiltered" :country="country" :key="index"></list-item>
     </input>
-
-    <!-- input box
-    v-on:change
-    filterFunction which updates countriedFiltered Array
-    display <list-item> of that filtered arrray -->
   </div>
+
+  <div class="filterList" v-if="checkEmpty">
+    <list-item  v-for="(country, index) in countriesFiltered" :country="country" :key="index"></list-item>
+  </div>
+
 </div>
 </template>
 
@@ -36,6 +35,17 @@ export default {
   components: {
     "list-item": ListItem
   },
+  computed: {
+    checkEmpty() {
+      if (this.countries.length==0) {
+        return false;
+      }
+      if (this.countriesFiltered.length == 0){
+        this.countriesFiltered = this.countries;
+      }
+      return true;
+    }
+  },
   methods: {
     selectHandler() {
       eventBus.$emit("country-selected", this.countries[this.countryIndex]);
@@ -53,4 +63,8 @@ export default {
 </script>
 
 <style scoped>
+.filterList{
+  padding-top: 20px;
+}
+
 </style>
